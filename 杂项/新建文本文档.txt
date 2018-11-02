@@ -1,0 +1,122 @@
+1.编译：          ./configure  --prefix='编译地址'
+
+    缺少库  yum install                    （devel库的意义）
+
+2.make && make install
+/usr/local/nginx目录下
+conf 配置文件
+html 网页文件
+logs 日志文件
+sbin 进程命令
+
+启动： ./sbin/nginx
+
+3. netstat -ant 查看运行的端口号
+
+4.查看当前的进程  ps aux|grep 80
+
+5.netstat --help
+
+6. 杀掉进程                  kill -9  主进程（pid）
+7.强制杀掉进程            pkill -9 http
+
+
+
+
+
+
+nginx 信号量
+wiki.niginx.org/CommandLine命令介绍
+
+kill +信号名（sigal）+主进程（pid）
+
+master process:主进程
+work process工作进程
+
+kill -INT/QUIT/HUP  (主进程号)     
+ps aux|grep nginx  查找nginx进程
+
+8. tail -10 文件名
+
+9. kill -HUP 'cat nignx.pid'
+
+nginx虚拟主机配置
+
+server{
+    信息
+}
+
+
+nginx 日志
+
+*定义日志目录
+access_log logs/z.com.access.log(日志地址) main;
+*未定义main格式bug:
+将niginx配置文件中的  #log_format main  前的注释符合 # 去掉
+*测试nginx配置文件是否正确
+/user/local/niginx/sbin/nginx -t
+
+
+
+
+
+
+
+
+date -d yesterday （昨天的日期）
+date -s （设置时间）
+date -d yesterday +%y
+
+echo `date -d yesterday +%Y%m%d`   打印昨天的日期
+echo $(date -d yesterday +%Y%m%d) 打印昨天的日期
+
+
+总结：location的命中过程是这样的：
+    = 精准命中
+    ~ 正则命中
+      普通命中 
+1、先判断精准命中，如果命中，立即返回结果并结束解析过程
+2、判断普通命中，如果有多个命中，记录下来 ‘最长’的命中结果 （注：记录但不结束，最长的为准）
+3、继续判断正则表达式的解析 结果，按配置里的正则表达式顺序 为准，由上到下开始匹配，一旦匹配成功一个，立即返回结果，并结束 解析过程 
+
+延申分析：a: 普通命中，顺序无所谓，是因为按命中的 长短来却确定的
+                b: 正则命中，顺序有所谓 ，因为是从前往后命中的
+
+
+
+nginx+php 的编译
+apache 一般是把php当作自己的一个模块来处理的 。
+
+而nginx则是把http 请求变量（如 get user_agent等）转发给php进程，即php 独立进程，与niginx进行通讯 ，称为fastcgi运行方式
+
+因此，为apache编译 的php,是不能用于php 的 
+
+注意 ：我们编译的php 要有如下功能 ：
+ 连接mysql 、gd、ttf 、以fpm (fastcgi) 方式运行。
+
+错误 ：       configure:error :png.h not found
+.h文件找不到，是因为缺少头文件，需要安装devel包。例如：  yum gd-devel
+
+./configure -help/grep mysql
+
+./configure--prefix=/usr/local/fastphp --with-mysql=mysqld --enable-fpm
+
+location php文件配置
+location ~ \.php$ {
+    root html;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index  index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;		
+} 
+
+其中$document_root （可替换为绝对路径下的网站根目录）
+
+
+查看系统安装的php rpm包
+
+
+查看ssh key的方法
+cd ~
+cat .ssh/id_rsa.pub
+		
