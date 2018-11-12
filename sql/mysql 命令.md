@@ -34,3 +34,13 @@ php think customer
 
 
 
+```
+mysql 1449:the user specified as a definer ('root'@'%') does not exist
+
+
+权限问题，授权给 root 所有sql 权限
+grant all privileges on *.* to root@'%' identified by ".";
+
+flush privileges;
+```
+
