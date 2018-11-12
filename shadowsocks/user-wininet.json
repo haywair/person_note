@@ -3,5 +3,5 @@
   "Flags": "9",
   "ProxyServer": null,
   "BypassList": null,
-  "PacUrl": null
+  "PacUrl": "http://127.0.0.1:1080/pac?t=20181107121145081&secret=5yDsF6Ksrs3npgwSvhmS1gzPtn6xRtrqMjKsieXrgwY="
 }
