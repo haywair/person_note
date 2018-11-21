@@ -8,7 +8,7 @@
 
   * 尽量使用tinyint、smallint\ medium_int，非负则加上unsigned
   * varchar长度只分配真正需要的空间
-  * 尽量使用timestam,而非使用datetime
+  * 尽量使用timestamp,而非使用datetime
   * 避免使用null。很难查询优化且占用额外索引空间
 
   2. 查询sql
